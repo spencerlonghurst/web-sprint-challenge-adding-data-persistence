@@ -1,6 +1,6 @@
 What commands and what to do to set up this project from scratch:
 
-1. Figure out what tables you will need:
+1. [X] Figure out what tables you will need:
 
   TABLE 1: projects
   - Primary Key: project_id,
@@ -25,7 +25,7 @@ What commands and what to do to set up this project from scratch:
   - Foreign Key: resource_id,
   - Foreign Key: project_id,
 
-2. Add scripts:
+2. [X] Add scripts:
   "start": "node index.js",
   "server": "nodemon index.js",
   "migrate": "knex migrate:latest",
@@ -33,12 +33,13 @@ What commands and what to do to set up this project from scratch:
   "seed": "knex seed: run",
   "reset": "npm run rollback && npm run migrate && npm run seed"
 
-3. Install dependencies:
+3. [X] Install dependencies:
   npm i -D knex-cleaner nodemon eslint
   npm i express sqlite knex
   npm i dotenv (Create a .env folder!!)
+  npm install sqlite3 --save
 
-4. Create Folders:
+4. [X] Create Folders:
   -index.js
   -api
     recipes
@@ -53,25 +54,24 @@ What commands and what to do to set up this project from scratch:
     db-config.js
   -knexfile.js
 
-5. Build out index.js. This is the entry point for your server.
+5. [X] Build out index.js. This is the entry point for your server.
 
-6. Build out server.js
+6. [] Build out server.js
 
-7. Build out Router
+7. [] Build out Router
 
-9. Scaffol out your model
+9. [] Scaffol out your model
 
-10. Scaffol out your middleware if you are using it.
+10. [X] Scaffol out your middleware if you are using it.
 
-11. Build your knexfile
+11. [X] Build your knexfile
 
-12. Build out your db-config file
+12. [X] Build out your db-config file
 
-13. Create a migrations folder by installing: 
-  npm install sqlite3 --save 
+13. [] Create a migrations folder by installing:  
   npx knex migrate:make initial-migration
 
-14. Create your up and down migrations to make/adjust your tables.
+14. [] Create your up and down migrations to make/adjust your tables.
     Remember, down your tables the opposite you created them, like sock then shoe/shoe then sock.
 
-15. Create a seed file, inside of your data folder.
+15. [] Create a seed file, inside of your data folder.
