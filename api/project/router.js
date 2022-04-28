@@ -1,66 +1,58 @@
 // build your `/api/projects` router here
 
-/*
-- [ ] `[GET] /api/projects`
-  - Even though `project_completed` is stored as an integer, the API uses booleans when interacting with the client
-  - Example of response body:
-[
-  {
-    "project_id":1,
-    "project_name":"bar",
-    "project_description":null,
-    "project_completed":false
-  },
-]
-
-- [ ] `[POST] /api/projects`
-  - Even though `project_completed` is stored as an integer, the API uses booleans when interacting with the client
-  - Example of response body:
-  {
-    "project_id":1,
-    "project_name":"bar",
-    "project_description":null,
-    "project_completed":false
-  }
-  */
-
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
 
-const Project = require('./model');
+const Project = require("./model");
 
+// - [ ] `[GET] /api/projects`
+//   - Even though `project_completed` is stored as an integer, the API uses booleans when interacting with the client
+//   - Example of response body:
+// [
+//   {
+//     "project_id":1,
+//     "project_name":"bar",
+//     "project_description":null,
+//     "project_completed":false
+//   },
+// ]
 
-router.get('/', (req, res, next) => {
+router.get("/", (req, res, next) => {
   Project.getProject()
-    .then(resp => {
-      if(resp.project_completed === 0) {
-        return (resp.project_completed === false)
-      } else {
-        return (resp.project_completed === true)
-      }
-      res.json(resp);
+    .then((resp) => {
+      resp.map(project => {
+        if (project.project_completed === 0) {
+          project.project_completed = false;
+        }
+        else if (project.project_completed === 1){
+          project.project_completed = true;
+        }
+      });
+      return res.json(resp);
     })
-    .catch(next)
-})
+    .catch(next);
+});
 
+// - [ ] `[POST] /api/projects`
+//   - Even though `project_completed` is stored as an integer, the API uses booleans when interacting with the client
+//   - Example of response body:
+//   {
+//     "project_id":1,
+//     "project_name":"bar",
+//     "project_description":null,
+//     "project_completed":false
+//   }
 
-router.post('/api/projects', (req, res, next) => {
+router.post("/api/projects", (req, res, next) => {});
 
-})
-
-
-
-
-
-
-
-router.use((err, req, res, next) => { //eslint-disable-line
+router.use((err, req, res, next) => {
+  //eslint-disable-line
   res.status(500).json({
-    customMessage: 'It aint working man',
+    customMessage: "It aint working man",
     message: err.message,
-    stack: err.stack
-  })
-})
+    stack: err.stack,
+  });
+});
 
 module.exports = router;
