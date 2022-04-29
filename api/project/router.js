@@ -21,11 +21,10 @@ const Project = require("./model");
 router.get("/", (req, res, next) => {
   Project.getProject()
     .then((resp) => {
-      resp.map(project => {
+      resp.map((project) => {
         if (project.project_completed === 0) {
           project.project_completed = false;
-        }
-        else if (project.project_completed === 1){
+        } else if (project.project_completed === 1) {
           project.project_completed = true;
         }
       });
@@ -44,10 +43,18 @@ router.get("/", (req, res, next) => {
 //     "project_completed":false
 //   }
 
-router.post("/api/projects", (req, res, next) => {});
+router.post("/", (req, res, next) => {
+  Project.postProject(req.body)
+    .then(prjct => {
+      res.json({
+        ...prjct,
+        project_completed: Boolean(prjct.project_completed)
+      })
+    })
+    .catch(next)
+});
 
 router.use((err, req, res, next) => {
-  //eslint-disable-line
   res.status(500).json({
     customMessage: "It aint working man",
     message: err.message,

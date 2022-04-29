@@ -1,11 +1,16 @@
 const db = require('../../data/dbConfig');
 
-async function getProject () {
+function getProject () {
   return db('projects');
 }
 
-async function postProject (body) { // eslint-disable-line
+function getProjectById (id) {
+  return db('projects').where('project_id', id).first()
+}
 
+async function postProject (body) {
+   const [project_id] = await db('projects').insert(body)
+    return getProjectById(project_id)
 }
 
 module.exports = {
